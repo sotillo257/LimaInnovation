@@ -1,0 +1,97 @@
+﻿<!-- ko with: home -->
+@{ List<LimaInnovation.Models.cProducto> Productos = ViewBag.Productos; }
+<div class="row">
+
+    <div class="row" style=" margin-top: 20px; ">
+        <div class="container-fluid ">
+            <label class="col-md-1">Categoria:</label>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option value="1">Frutas</option>
+                    <option value="2">Verduras</option>
+                </select>
+            </div>
+           
+        </div>
+        </div>
+
+    @foreach (var item in Productos)
+    {
+<div class="col-md-3 " style="
+      ">
+    <div style="        margin-top: 60px;
+        background-color: #9fa0a0;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 10px;
+        border-bottom-width: 10px;
+        padding-bottom: 10px;
+">
+        <div style="text-align:center">
+            <img src="~/Content/135288534.jpg" class="card-img-top" width="200" alt="...">
+
+        </div>
+        <div style="        text-align: left;    background-color: #9fa0a0;">
+            <div class="col-md-12" style="background-color: #9fa0a0;">
+                <h4 class="card-title">@item.Nombre</h4>
+                <p class="card-text">@item.Descripcion</p>
+                <p class="card-text">Cant: @item.Cantidad</p>
+            </div>
+            <div class="col-md-6" style="        background-color: #9fa0a0;
+        padding-bottom: 10px;
+">
+                <input type="number" value="1" placeholder="Cantidad" min="0" class="input-sm form-control" id="@item.Id-txtCantidad" />
+            </div>
+            <div class="col-md-6" style="        text-align: right;
+        background-color: #9fa0a0;
+        padding-bottom: 10px;">
+                <button data-id="@item.Id" class="btn btn-primary btn-sm btn-Agregar">Agregar</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+    }
+
+
+</div>
+
+
+    @section Scripts{
+     <script>
+         $(document).ready(function () {
+             $(document).on("click", ".btn-Agregar", function () {
+                 var IDProducto = $(this).data("id");
+                 var pProducto =
+                 {
+                     Id:  IDProducto ,
+                     Cantidad: $("#" + IDProducto +"-txtCantidad").val()
+                 };
+
+                 $.ajax({
+                     type: 'POST',
+                     data: JSON.stringify(pProducto),
+                     url: '@Url.Action("AgregarProducto","Home")',
+                     async: false,
+                     dataType: "json",
+                     contentType: 'application/json; charset=utf-8',
+                     success: function (response) {
+                         if (response.Result == true) {
+                             alert("Producto Agregado")
+                         } else {
+                             alert("Error al agregar el producto")
+                         }
+                     },
+                     error: function (err) {
+                         alert("Error al agregar el producto")
+                     },
+
+                 });
+
+             });
+
+
+         });
+        </script>
+    }

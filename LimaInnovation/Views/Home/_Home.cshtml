@@ -1,0 +1,42 @@
+﻿<!-- ko with: home -->
+@{ List<LimaInnovation.Models.cProducto> Productos = ViewBag.Prodcutos; }
+<div class="row">
+
+    <nav>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+        </div>
+    </nav>
+
+    @foreach (var item in Productos)
+    {
+        <div class="col-md-3 " style=" margin-top: 60px; ">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Content/135288534.jpg" class="card-img-top" width="200" alt="...">
+                <div class="card-body">
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="col-md-12">
+                        <h4 class="card-title">@item.Nombre</h4>
+                        <p class="card-text">@item.Descripcion</p>
+                        <p class="card-text">Cant: @item.Cantidad</p>
+                    </div>
+                    <div class="col-md-12">
+                        <label></label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="number" placeholder="Cantidad" min="0" class="input-sm form-control" id="Cantidad" />
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" data-id="@item.Id" class="btn btn-primary btn-sm">Agregar</a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    }
+
+
+</div>
